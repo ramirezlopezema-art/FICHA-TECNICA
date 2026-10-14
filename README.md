@@ -1,29 +1,23 @@
 # Portafolio arquitectónico — Colegio Marino Gómez Estrada
 
-Sitio web estático en HTML, CSS y JavaScript para el proyecto de Emanuel Ramírez López.
+Sitio estático en HTML, CSS y JavaScript para presentar el proyecto académico de Emanuel Ramírez López. Abre `index.html` en un navegador; no requiere instalación.
 
-## Abrir el sitio
+## Cambiar textos e imágenes
 
-Abra `index.html` en un navegador. No requiere instalación ni framework.
+Usa el botón **Editar** dentro del sitio. En **Textos** y **Imágenes**, los elementos están agrupados por sección: Inicio, Maqueta, Planos, Renderizado, Video 3D y Proceso. Las fotos que se cargan desde el equipo sirven como vista previa en ese navegador.
 
-## Añadir el material definitivo
+Para conservar una imagen en el proyecto, guárdala en `assets/references/` y selecciona su ruta en el editor o actualiza la propiedad `src` del elemento correspondiente en `contenido.js`.
 
-Organice los archivos en las carpetas siguientes:
+Las vistas de planos tienen archivos independientes para evitar reutilizar la misma foto:
 
 ```text
-assets/
-├── maqueta/       fotografías del modelo físico
-├── planos/        plantas, cortes, fachadas y detalles
-├── renders/       imágenes de visualización digital
-├── proceso/       bocetos y registro de desarrollo
-├── galeria/       imágenes adicionales
-└── video/         recorrido-3d.mp4
+assets/references/
+├── planos-feature.jpg
+├── planos-cortes.jpg
+├── planos-fachadas.jpg
+└── planos-detalles.jpg
 ```
 
-Las tarjetas de ejemplo se definen al comienzo de `script.js`, en `portfolioData`. Para cada fotografía agregue una entrada con su nombre; la cuadrícula se adapta automáticamente. Sustituya el degradado de muestra por una URL relativa, por ejemplo:
+El video real del recorrido se guarda en `assets/video/recorrido-3d.mp4`. La carpeta incluye instrucciones. Abre **Editar → Video** para cargarlo desde esa ruta o probar otro archivo desde el equipo.
 
-```js
-['Fachada principal', "url('assets/maqueta/fachada-principal.jpg') center / cover"]
-```
-
-Para el video real, reemplace la escena de ejemplo por una etiqueta `<video controls>` apuntando a `assets/video/recorrido-3d.mp4`.
+Las fotografías de las demás secciones también se configuran en `contenido.js`. Sus nombres aparecen en el editor junto con el título y el número de foto.
