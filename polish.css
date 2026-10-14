@@ -135,17 +135,16 @@ h2 { line-height: 1.06; }
 .video-stage::before { content: "FOTO " attr(data-photo-number); position: absolute; z-index: 4; top: 15px; left: 15px; padding: 5px 8px; border: 1px solid rgba(255,255,255,.78); border-radius: 3px; background: rgba(3,22,57,.88); color: #fff; font: 800 9px/1 Archivo, sans-serif; letter-spacing: .13em; }
 .video-stage-top { left: 88px; }
 
-/* El logo SENA se integra en su bloque; el escudo escolar conserva su columna. */
-.technical-footer { grid-template-columns: 1.12fr .76fr .76fr 1.35fr 1.42fr .62fr; }
-.sena-block { display: grid; grid-template-columns: clamp(54px, 5vw, 76px) minmax(0, 1fr); align-items: center; gap: 10px; padding: 9px 12px; }
-.sena-block .sena-logo { display: block; width: 100%; max-height: 76px; padding: 4px; border-radius: 4px; background: #fff; object-fit: contain; }
-.sena-block p { margin: 0 0 3px; font-size: 9px; font-weight: 800; line-height: 1.22; }
-.sena-block small { display: block; margin: 0; font-size: 8px; line-height: 1.3; }
+/* Siete columnas en escritorio; en formatos pequeños los emblemas siguen legibles. */
+.technical-footer { grid-template-columns: 1.12fr .62fr .76fr .76fr 1.35fr 1.42fr .62fr; }
+.crest-sena { background: #fff; }
+.crest-sena img { padding: 6px; }
 @media (max-width: 1150px) and (min-width: 751px) {
   .route-card:nth-child(n+4) { display: block; }
   .route-cards { grid-template-columns: repeat(3, 1fr); }
   .technical-footer { grid-template-columns: repeat(3, 1fr); }
   .technical-cell-institution { grid-column: span 2; }
+  .crest-sena { width: 90px; height: 90px; }
 }
 @media (max-width: 750px) {
   .media-index { top: 8px; left: 8px; min-height: 22px; font-size: 8px; }
@@ -153,11 +152,8 @@ h2 { line-height: 1.06; }
   .video-stage::before { top: 11px; left: 11px; font-size: 8px; }
   .video-stage-top { left: 74px; }
   .technical-footer { grid-template-columns: 1fr 1fr; }
-  .sena-block { grid-template-columns: 48px minmax(0, 1fr); gap: 7px; padding: 7px; }
-  .sena-block .sena-logo { max-height: 58px; }
-  .sena-block p { font-size: 7px; }
-  .sena-block small { font-size: 6px; }
   .technical-cell-wide, .technical-cell-institution { grid-column: span 2; }
+  .crest-sena { width: 78px; height: 78px; }
 }
 
 /* Panel de edición local: permite probar cambios sin entrar al código. */
@@ -198,3 +194,191 @@ h2 { line-height: 1.06; }
 .editor-access__card button:disabled { opacity: .65; cursor: wait; }
 .editor-access__error { min-height: 16px; margin: 0; color: #b1132a; font-size: 11px; font-weight: 700; }
 @media (max-width: 640px) { .editor-panel { padding: 20px; } .editor-heading h2 { font-size: 26px; } }
+
+/* Inicio animado, con una duración fija de diez segundos. */
+.intro-loader {
+  position: fixed;
+  z-index: 500;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 28px;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(255,255,255,.97), rgba(238,246,255,.96) 55%, #d9e9fc),
+    #edf5ff;
+  transition: opacity .65s ease, visibility .65s ease;
+}
+.intro-loader::before, .intro-loader::after {
+  content: "";
+  position: absolute;
+  width: min(74vw, 760px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(28,112,219,.12);
+  border-radius: 50%;
+  animation: intro-orbit 16s linear infinite;
+}
+.intro-loader::after {
+  width: min(58vw, 580px);
+  animation-direction: reverse;
+  animation-duration: 22s;
+}
+.intro-loader.is-leaving { opacity: 0; visibility: hidden; }
+.intro-card {
+  position: relative;
+  z-index: 1;
+  width: min(540px, 100%);
+  text-align: center;
+  animation: intro-arrive .8s cubic-bezier(.2,.8,.2,1) both;
+}
+.intro-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  height: 76px;
+}
+.intro-logos img { width: 66px; height: 66px; object-fit: contain; }
+.intro-logos .intro-logo-sena { width: 106px; height: 66px; }
+.intro-logos > span { width: 1px; height: 42px; background: #a7c5eb; }
+.intro-building {
+  display: block;
+  width: min(300px, 75%);
+  height: auto;
+  margin: 22px auto 9px;
+  fill: none;
+  stroke: #1c70db;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 620;
+  stroke-dashoffset: 620;
+  animation: intro-draw 3s ease-in-out .25s forwards;
+}
+.intro-building-ground { stroke: #ee2637; stroke-width: 2.5; }
+.intro-kicker {
+  margin: 0 0 12px;
+  color: #52709c;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .18em;
+}
+.intro-card h1 {
+  margin: 0;
+  color: #061b49;
+  font-size: clamp(24px, 5vw, 37px);
+  line-height: 1.12;
+  letter-spacing: -.045em;
+}
+.intro-card h1 strong { display: block; color: #1768d9; }
+.intro-subtitle { margin: 12px 0 25px; color: #5c7091; font-size: 13px; }
+.intro-progress { height: 4px; overflow: hidden; border-radius: 5px; background: #c9dcf5; }
+.intro-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #ee2637, #1768d9);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: intro-progress 10s linear forwards;
+}
+.intro-loading-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 9px;
+  color: #61799c;
+  font: 800 9px/1.4 Inter, sans-serif;
+  letter-spacing: .1em;
+}
+.intro-loading-label span:last-child { color: #0d397d; font-variant-numeric: tabular-nums; }
+@keyframes intro-orbit { to { transform: rotate(360deg); } }
+@keyframes intro-arrive { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes intro-draw { to { stroke-dashoffset: 0; } }
+@keyframes intro-progress { to { transform: scaleX(1); } }
+
+/* Las fotos usan recortes estables y sus títulos quedan fuera de la imagen. */
+.gallery-card {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+.gallery-image, .render-image { position: relative; display: block; min-width: 0; overflow: hidden; }
+.gallery-image { min-height: 0; }
+.gallery-image img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-card .media-caption, .render-thumb .media-caption {
+  position: static;
+  display: -webkit-box;
+  overflow: hidden;
+  padding: 7px 8px;
+  color: var(--navy);
+  background: #fff;
+  font-size: 10px;
+  line-height: 1.3;
+  text-align: left;
+  opacity: 1;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.render-thumb {
+  display: grid;
+  grid-template-rows: auto minmax(34px, auto);
+  min-height: 0;
+}
+.render-image { aspect-ratio: 4 / 3; }
+.render-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.render-thumb .media-caption { align-self: stretch; }
+.hero-media .architect-quote, .hero-media .hero-label, .hero-media .media-chip,
+.process-hero-image .architect-quote { display: none; }
+
+/* Logos recortados sin fondo, juntos y centrados en el pie técnico. */
+.technical-footer { grid-template-columns: .95fr 1fr 1fr 1.3fr 1.4fr; }
+.institution-logos {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 2vw, 24px);
+  min-width: 0;
+  min-height: 112px;
+  padding: 10px;
+}
+.institution-logos img { display: block; width: 68px; height: 72px; object-fit: contain; }
+.institution-logos .logo-sena { width: min(46%, 120px); }
+.institution-logos .logo-school { width: min(44%, 78px); }
+.technical-footer.is-dark .institution-logos .logo-sena { filter: brightness(0) invert(1); }
+@media (max-width: 1150px) and (min-width: 751px) {
+  .technical-footer { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .institution-logos { grid-column: span 1; }
+}
+@media (max-width: 750px) {
+  .intro-loader { padding: 20px; }
+  .intro-building { margin-top: 17px; }
+  .intro-kicker { font-size: 8px; }
+  .technical-footer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .institution-logos { grid-column: span 2; min-height: 92px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro-loader::before, .intro-loader::after, .intro-card, .intro-building { animation: none; }
+  .intro-building { stroke-dashoffset: 0; }
+  .intro-progress span { animation: intro-progress 10s linear forwards; }
+}
+
+.render-view-summary { grid-column: 1 / -1; padding: 2px 4px 8px; }
+.editor-media-section { margin: 18px 0 9px; padding: 9px 11px; border-left: 3px solid var(--red); background: #f0f6ff; color: #36537d; font-size: 12px; font-weight: 800; }
+.editor-media-preview { display: grid; grid-template-columns: 116px 1fr; align-items: center; gap: 12px; margin: 4px 0 15px; padding: 8px; border: 1px solid #d5e4f7; border-radius: 7px; background: #f8fbff; }
+.editor-media-preview img { display: block; width: 116px; height: 78px; border-radius: 4px; background: #e2edf9; object-fit: cover; }
+.editor-media-preview span { color: var(--navy); font-size: 11px; font-weight: 800; line-height: 1.45; }
+.editor-video-section { margin: 18px 0 8px; padding: 9px 11px; border-left: 3px solid var(--red); background: #f0f6ff; color: var(--navy); font-size: 12px; font-weight: 800; letter-spacing: .06em; }
+.editor-video-help { margin: 0 0 15px; color: #49648b; font-size: 12px; line-height: 1.55; }
+.editor-video-help code { padding: 2px 4px; border-radius: 3px; background: #e5effd; color: var(--navy); font-size: 11px; }
+.video-stage { cursor: default; }
+.video-stage #project-video { display: block; width: 100%; height: 100%; object-fit: contain; background: #031536; }
+.video-stage #project-video[hidden] { display: none; }
+.video-placeholder { position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden; background: #031536; }
+.video-placeholder[hidden] { display: none; }
+.video-placeholder > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .45; }
+.video-placeholder > div { position: relative; z-index: 1; width: min(460px, 90%); padding: 24px; border: 1px solid #ffffff54; border-radius: 10px; background: #061b49c9; color: #fff; text-align: center; }
+.video-placeholder b { display: block; margin-bottom: 7px; font: 800 14px Archivo, sans-serif; letter-spacing: .1em; }
+.video-placeholder p { margin: 0; color: #d9e8ff; font-size: 13px; line-height: 1.5; }
+.video-stage::before, .video-stage::after { content: none; }
