@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
+  <title id="title">Identificación SENA</title>
+  <desc id="desc">Símbolo gráfico y sigla del Servicio Nacional de Aprendizaje.</desc>
+  <rect width="180" height="180" rx="90" fill="#fff"/>
+  <circle cx="90" cy="90" r="83" fill="none" stroke="#061b49" stroke-width="5"/>
+  <path d="M90 30v47M61 63l29 14 29-14M90 77v30M57 139l33-32 33 32" fill="none" stroke="#061b49" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="90" cy="25" r="9" fill="#ee2637"/>
+  <text x="90" y="164" fill="#061b49" font-family="Arial,sans-serif" font-size="23" font-weight="700" text-anchor="middle">SENA</text>
+</svg>
