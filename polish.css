@@ -338,6 +338,14 @@ h2 { line-height: 1.06; }
   height: 100%;
   object-fit: cover;
 }
+.render-thumb .media-caption {
+  min-height: 42px;
+  font-weight: 700;
+}
+@media (min-width: 761px) {
+  .render-thumb .gallery-image { min-height: 145px; }
+  .render-panel { align-content: start; }
+}
 .hero-media .architect-quote, .hero-media .hero-label, .hero-media .media-chip,
 .process-hero-image .architect-quote { display: none; }
 

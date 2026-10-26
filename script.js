@@ -92,7 +92,9 @@ const planItems = [
   {number:'04', filter:'detalles', key:'planos-detalles', title:'Plano de cimentación', description:'Detalle técnico de los elementos estructurales y la cimentación.'}
 ];
 
-const exteriorItems = ['render-exterior-1','render-exterior-2','render-feature','render-hero'];
+/* La vista destacada y el encabezado ya muestran otras dos imágenes: aquí van
+   solo las perspectivas restantes para no repetir la misma foto. */
+const exteriorItems = ['render-exterior-1','render-exterior-2'];
 const interiorItems = ['render-interior-1','render-interior-2'];
 const renderViewDetails = {
   exterior: {label:'VISTA EXTERIOR', title:'El proyecto y su entorno', description:'Explora la fachada y la relación del proyecto arquitectónico con el espacio exterior.', key:'render-feature'},
