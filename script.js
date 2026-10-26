@@ -41,9 +41,12 @@ const routeItems = [
 ];
 
 const maquetaItems = [
-  {key:'maqueta-detail', tags:['general','isometricas','detalles','galeria']},
   {key:'maqueta-hero', tags:['general','detalles','galeria']},
-  {key:'home-hero', tags:['general','isometricas','galeria']}
+  {key:'maqueta-detail', tags:['general','isometricas','galeria']},
+  {key:'maqueta-general', tags:['general','detalles','galeria']},
+  {key:'maqueta-general-2', tags:['general','detalles','galeria']},
+  {key:'maqueta-isometrica-2', tags:['general','isometricas','galeria']},
+  {key:'maqueta-second-floor', tags:['general','isometricas','detalles','galeria']}
 ];
 
 const maquetaViewDetails = {
@@ -83,10 +86,10 @@ const maquetaViewDetails = {
 let selectedMaquetaFilter = 'general';
 
 const planItems = [
-  {number:'01', filter:'planta', key:'planos-feature', title:'Planta arquitectónica general', description:'Distribución de espacios, circulaciones y accesos del proyecto.'},
-  {number:'02', filter:'cortes', key:'planos-cortes', title:'Cortes arquitectónicos', description:'Alturas, niveles y relaciones verticales entre los espacios.'},
-  {number:'03', filter:'fachadas', key:'planos-fachadas', title:'Fachadas arquitectónicas', description:'Composición exterior, proporciones y accesos del proyecto.'},
-  {number:'04', filter:'detalles', key:'planos-detalles', title:'Detalles arquitectónicos', description:'Ampliaciones de elementos y encuentros constructivos.'}
+  {number:'01', filter:'planta', key:'planos-feature', title:'Planta arquitectónica — primer piso', description:'Distribución de espacios, circulaciones y accesos del primer piso.'},
+  {number:'02', filter:'cortes', key:'planos-cortes', title:'Planta arquitectónica — segundo piso', description:'Distribución de habitaciones, baños y circulación del segundo piso.'},
+  {number:'03', filter:'fachadas', key:'planos-fachadas', title:'Fachada arquitectónica', description:'Elevación de la fachada principal de la vivienda.'},
+  {number:'04', filter:'detalles', key:'planos-detalles', title:'Plano de cimentación', description:'Detalle técnico de los elementos estructurales y la cimentación.'}
 ];
 
 const exteriorItems = ['render-exterior-1','render-exterior-2','render-feature','render-hero'];
@@ -133,6 +136,7 @@ let currentModalIndex = 0;
 let zoomLevel = 1;
 let activeLocalVideoUrl = '';
 let selectedVideoFile = null;
+const defaultVideoSource = 'IMAGENES/VIDEO%203D/Grabaci%C3%B3n%20de%20pantalla%202026-10-25%20175325.mp4';
 let renderIndex = 0;
 let inlineTextTargets = new Map();
 
@@ -245,7 +249,7 @@ function syncStaticMedia() {
 function renderAll() { renderRoute(); renderMaqueta(); renderPlans(selectedPlanFilter); renderThumbs('render-exterior', exteriorItems); renderThumbs('render-interior', interiorItems); renderChapters(); renderTimeline(); syncStaticMedia(); setRenderFilter(selectedRenderFilter, false); }
 
 /* Editor rápido: guarda una prueba local. Para cambios permanentes usa contenido.js. */
-const editorStorageKey = 'colegio-marino-portfolio-draft-v1';
+const editorStorageKey = 'casa-unifamiliar-portfolio-draft-v2';
 const editableTexts = [
   {id:'home-lead', label:'Inicio — descripción principal', selector:'#inicio .lead'},
   {id:'route-title', label:'Inicio — título de etapas', selector:'#route-title'},
@@ -434,8 +438,8 @@ function initializeEditor() {
   });
   fillTextEditor(textSelect.value);
   fillMediaEditor(mediaSelect.value);
-  $('#editor-video-source').value = editorDraft.video?.src || '';
-  setProjectVideoSource(editorDraft.video?.src || '');
+  $('#editor-video-source').value = editorDraft.video?.src || defaultVideoSource;
+  setProjectVideoSource(editorDraft.video?.src || defaultVideoSource);
   $('#editor-video-source').addEventListener('input', () => { selectedVideoFile = null; });
   $('#editor-trigger').addEventListener('click', requestEditorAccess);
   $$('[data-close-editor]').forEach(button => button.addEventListener('click', () => { $('#content-editor').classList.remove('is-open'); $('#content-editor').setAttribute('aria-hidden', 'true'); $('#editor-trigger').setAttribute('aria-expanded', 'false'); }));
@@ -633,6 +637,7 @@ if (introLoader) {
 
 readEditorDraft();
 renderAll();
+setProjectVideoSource(editorDraft.video?.src || defaultVideoSource);
 refreshInlineTextTargets();
 initializeEditor();
 document.addEventListener('click', event => {
