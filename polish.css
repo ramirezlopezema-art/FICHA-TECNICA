@@ -327,6 +327,17 @@ h2 { line-height: 1.06; }
 .render-image { aspect-ratio: 4 / 3; }
 .render-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .render-thumb .media-caption { align-self: stretch; }
+.render-thumb .gallery-image {
+  display: block;
+  min-height: 110px;
+  aspect-ratio: 4 / 3;
+}
+.render-thumb .gallery-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .hero-media .architect-quote, .hero-media .hero-label, .hero-media .media-chip,
 .process-hero-image .architect-quote { display: none; }
 
